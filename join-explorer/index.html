@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join explorer</title>
+<meta name="description" content="Data Science for Geographers, Practical 1: see what each type of join does to the tobacco retailer counts.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M7 11h18M7 16h18M7 21h18M16 7v18%22 stroke=%22white%22 stroke-width=%222.2%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 1</span>
+</header>
+
+<main>
+  <h1>Joining tables: the join explorer</h1>
+  <p id="intro"></p>
+  <p>Below are a few rows from our data: six tobacco retailers and eight postcodes from the look-up table (remember, all of the data is simulated). Choose a type of join and see what happens to the joined table and, more importantly, to the number of retailers we count in each datazone.</p>
+
+  <section class="controls" aria-label="Choose a join">
+    <div class="control">
+      <span class="control-label" id="lang-label">Language</span>
+      <div class="segmented" role="group" aria-labelledby="lang-label">
+        <button type="button" data-lang="R" aria-pressed="true">R</button>
+        <button type="button" data-lang="Python" aria-pressed="false">Python</button>
+      </div>
+    </div>
+    <div class="control">
+      <span class="control-label" id="join-label">Type of join</span>
+      <div class="segmented" role="group" aria-labelledby="join-label" id="join-buttons"></div>
+    </div>
+    <label class="toggle">
+      <input type="checkbox" id="dup">
+      <span>Add a duplicate postcode (QD37 6YN) to the look-up table</span>
+    </label>
+  </section>
+
+  <section class="inputs" aria-label="The two tables we are joining">
+    <div class="panel">
+      <h2><code>tobaccoregister</code> <span class="sub">(the first table)</span></h2>
+      <div class="table-wrap"><table id="x-table"></table></div>
+    </div>
+    <div class="panel">
+      <h2><code>postcodes</code> <span class="sub">(the look-up table)</span></h2>
+      <div class="table-wrap"><table id="y-table"></table></div>
+    </div>
+  </section>
+
+  <section class="results">
+    <div class="panel">
+      <h2>The joined table <span class="sub" id="row-count"></span></h2>
+      <div class="table-wrap"><table id="joined-table"></table></div>
+      <ul class="legend" aria-label="Key">
+        <li><span class="swatch x"></span>Retailer with no matching postcode</li>
+        <li><span class="swatch y"></span>Postcode with no retailer</li>
+        <li><span class="swatch dup"></span>Extra row from the duplicate postcode</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Retailers counted in each datazone</h2>
+      <div class="table-wrap"><table id="count-table"></table></div>
+      <p class="verdict" id="verdict" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="panel explain" aria-live="polite">
+    <h2>What's going on?</h2>
+    <p id="explain"></p>
+    <p id="dup-note" class="note" hidden></p>
+    <h3>The code</h3>
+    <pre><code id="code"></code></pre>
+    <p class="small">Then, to count the retailers in each datazone:</p>
+    <pre><code id="count-code"></code></pre>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 1 &middot; All data are simulated: every datazone, postcode and retailer is fictional.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
