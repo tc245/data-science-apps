@@ -1,0 +1,19 @@
+/* Styles for the outlier explorer only. */
+:root { --extreme: #eb6834; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --extreme: #d95926; } }
+:root[data-theme="dark"] { --extreme: #d95926; }
+
+.controls { align-items: center; gap: 10px 12px; }
+.slider.cutoff { flex: 1 1 100%; margin: 0; }
+svg.chart .dot.extreme, .swatch.extreme { fill: var(--extreme); background: var(--extreme); fill-opacity: 1; }
+svg.chart .trace { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+svg.chart .trace.adjusted { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 6 5; }
+svg.chart .now { stroke: var(--accent); stroke-width: 1.5; }
+svg.chart .now-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+svg.chart .reference { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 4; }
+h2.second { margin-top: 22px; }
+#coef-table, #six-table { font-size: 0.84rem; }
+#coef-table th, #coef-table td, #six-table th, #six-table td { padding: 5px 4px; }
+tr.removed td { color: var(--muted); text-decoration: line-through; }
+tr.removed td:last-child { text-decoration: none; font-style: italic; }
+@media (max-width: 480px) { .panel table { font-size: 0.82rem; } .panel th, .panel td { padding: 5px 3px; } }

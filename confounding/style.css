@@ -1,0 +1,24 @@
+/* Styles for the confounding explorer only. */
+/* The three deprivation groups (checked for colourblind separation in light and dark). */
+:root {
+  --dep-most: #eb6834;
+  --dep-mid: #1baf7a;
+  --dep-least: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --dep-most: #d95926; --dep-mid: #199e70; --dep-least: #3987e5; }
+}
+:root[data-theme="dark"] { --dep-most: #d95926; --dep-mid: #199e70; --dep-least: #3987e5; }
+
+svg.chart .dot.most, .swatch.most { fill: var(--dep-most); background: var(--dep-most); }
+svg.chart .dot.mid, .swatch.mid { fill: var(--dep-mid); background: var(--dep-mid); }
+svg.chart .dot.least, .swatch.least { fill: var(--dep-least); background: var(--dep-least); }
+svg.chart .fit-line.most { stroke: var(--dep-most); }
+svg.chart .fit-line.mid { stroke: var(--dep-mid); }
+svg.chart .fit-line.least { stroke: var(--dep-least); }
+svg.chart .predicted { fill: var(--surface); stroke: var(--ink); stroke-width: 2.5; }
+.swatch.predicted { border-radius: 50%; background: var(--surface); border: 2.5px solid var(--ink); }
+
+.prediction { font-size: 1.1rem; margin: 4px 0 8px; }
+.prediction b { font-size: 1.35rem; color: var(--accent); }
+@media (max-width: 480px) { #coef-table { font-size: 0.82rem; } #coef-table th, #coef-table td { padding: 5px 3px; } }

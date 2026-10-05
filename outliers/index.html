@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Outlier explorer</title>
+<meta name="description" content="Data Science for Geographers, Practical 2: see how much six extreme datazones change the association between tobacco retailers and smoking rates.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M7 11h18M7 16h18M7 21h18M16 7v18%22 stroke=%22white%22 stroke-width=%222.2%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 2</span>
+</header>
+
+<main>
+  <h1>Six datazones: the outlier explorer</h1>
+  <p id="intro"></p>
+  <p>Below are all 1,208 of our urban datazones, including the ones we removed in the practical (remember, all of the data is simulated). Move the slider to change where we make the cut, and watch what happens to the regression line. Take it one step at a time: each time you change something, have a look at the plot and then read the "What's going on?" box, which changes to explain what you are seeing.</p>
+
+  <section class="results">
+    <div class="panel">
+      <h2>Smoking rate and tobacco retailers <span class="sub">(each dot is an urban datazone)</span></h2>
+      <div class="chart-wrap">
+        <svg id="chart" class="chart" viewBox="0 0 720 400" role="img" aria-labelledby="chart-desc"></svg>
+        <div id="tip" class="tip" hidden></div>
+      </div>
+      <p id="chart-desc" class="visually-hidden"></p>
+      <ul class="legend" id="legend" aria-label="Key"></ul>
+
+      <h2 class="second">The coefficient for <code>retailers_adj</code> at every cut-off</h2>
+      <div class="chart-wrap">
+        <svg id="trace" class="chart" viewBox="0 0 720 250" role="img" aria-labelledby="trace-desc"></svg>
+      </div>
+      <p id="trace-desc" class="visually-hidden"></p>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Choose the cut-off">
+        <label class="slider cutoff">
+          <span>Remove datazones with more than <b id="cutoff-value"></b> retailers per 1,000 people</span>
+          <input type="range" id="cutoff" min="10" max="300" step="1" value="300">
+        </label>
+        <button type="button" class="action" data-cutoff="300">Keep everything</button>
+        <button type="button" class="action" data-cutoff="100">As in the practical (100)</button>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+      <div class="panel">
+      <h2>What we are left with</h2>
+      <p id="kept" aria-live="polite"></p>
+      <h3>The coefficient for <code>retailers_adj</code></h3>
+      <div class="table-wrap"><table id="coef-table"></table></div>
+      <p class="fit" id="fit"></p>
+      <h3>The code</h3>
+      <pre><code id="code"></code></pre>
+      <h3>The six datazones with more than 100 retailers per 1,000 people</h3>
+      <div class="table-wrap"><table id="six-table"></table></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 2 &middot; All data are simulated: every datazone and value is fictional.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

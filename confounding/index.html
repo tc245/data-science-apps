@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confounding explorer</title>
+<meta name="description" content="Data Science for Geographers, Practical 2: see what adjusting for deprivation does to the association between tobacco retailers and smoking rates.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M7 11h18M7 16h18M7 21h18M16 7v18%22 stroke=%22white%22 stroke-width=%222.2%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 2</span>
+</header>
+
+<main>
+  <h1>Adjusting for deprivation: the confounding explorer</h1>
+  <p id="intro"></p>
+  <p>Below are the same 1,202 urban datazones we used in the practical (remember, all of the data is simulated). Have a look at the first model, then colour the datazones by deprivation, and then switch to the second model and see what happens to the line. Take it one step at a time: each time you change something, have a look at the plot and then read the "What's going on?" box, which changes to explain what you are seeing.</p>
+
+  <section class="results">
+    <div class="panel">
+      <h2>Smoking rate and tobacco retailers <span class="sub">(each dot is an urban datazone)</span></h2>
+      <div class="chart-wrap">
+        <svg id="chart" class="chart" viewBox="0 0 720 440" role="img" aria-labelledby="chart-desc"></svg>
+        <div id="tip" class="tip" hidden></div>
+      </div>
+      <p id="chart-desc" class="visually-hidden"></p>
+      <ul class="legend" id="legend" aria-label="Key"></ul>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Choose a model">
+        <div class="control">
+          <span class="control-label" id="model-label">Model</span>
+          <div class="segmented" role="group" aria-labelledby="model-label">
+            <button type="button" data-model="simple" aria-pressed="true">1: retailers only</button>
+            <button type="button" data-model="adjusted" aria-pressed="false">2: retailers + deprivation</button>
+          </div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="colour">
+          <span>Colour the datazones by deprivation</span>
+        </label>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+      <div class="panel">
+      <h2>The model</h2>
+      <pre><code id="code"></code></pre>
+      <div class="table-wrap"><table id="coef-table"></table></div>
+      <p class="fit" id="fit"></p>
+
+      <h3>What does the model predict?</h3>
+      <label class="slider">
+        <span>Retailers per 1,000 people: <b id="retailers-value"></b></span>
+        <input type="range" id="retailers" min="0" max="10" step="0.5" value="2">
+      </label>
+      <label class="slider">
+        <span>Deprivation rank (1 is the most deprived): <b id="rank-value"></b></span>
+        <input type="range" id="rank" min="1" max="1600" step="1" value="800">
+      </label>
+      <p class="prediction" aria-live="polite">Predicted smoking rate: <b id="prediction"></b></p>
+      <pre><code id="equation"></code></pre>
+      <p class="small" id="prediction-note"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 2 &middot; All data are simulated: every datazone and value is fictional.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
