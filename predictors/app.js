@@ -1,6 +1,7 @@
 import { DATA } from "./data.js";
 import { DOMAINS, fit, correlation } from "./fit.js";
 import { explain } from "../shared/explain.js";
+import { onLang } from "../shared/lang.js";
 import { TEXT } from "./text.js";
 
 const $ = (id) => document.getElementById(id);
@@ -97,6 +98,7 @@ function render() {
   drawChart(now);
   drawGrid();
   drawPanel(now);
+  $("scale-note").textContent = TEXT.scaleNote(FULL);
 }
 
 // ---------------------------------------------------------------- set-up and events
@@ -113,5 +115,5 @@ document.addEventListener("click", (e) => {
 $("legend").innerHTML =
   `<li><span class="swatch alone"></span><span>${TEXT.legend.alone}</span></li><li><span class="swatch model"></span><span>${TEXT.legend.model}</span></li>`;
 $("intro").textContent = TEXT.intro;
-$("scale-note").textContent = TEXT.scaleNote(FULL);
+onLang(render);
 render();

@@ -1,6 +1,7 @@
 import { DATA } from "./data.js";
 import { fitAt, PRACTICAL_CUTOFF } from "./trim.js";
 import { explain } from "../shared/explain.js";
+import { onLang } from "../shared/lang.js";
 import { TEXT } from "./text.js";
 
 const $ = (id) => document.getElementById(id);
@@ -161,4 +162,5 @@ $("legend").innerHTML =
   `<li><span class="swatch round extreme"></span>More than 100 retailers per 1,000 people</li>` +
   `<li><span class="swatch line"></span>Regression line (retailers only)</li>`;
 $("intro").textContent = TEXT.intro;
+onLang(drawPanel);
 render();

@@ -1,19 +1,24 @@
-// All of the words on the page. Written in the same voice as the practical notebooks.
+// All of the words on the page (the code, and the names of things in the output, in R and Python versions). Written in the same voice as the practical notebooks.
 // `all` is the fit with nothing removed, `practical` the fit at the practical's cut-off and `now` the
 // fit at the slider's cut-off, so the numbers in the text always match the numbers on the page.
+
+import { lang } from "../shared/lang.js";
 
 const f = (x, dp = 2) => x.toFixed(dp);
 const slope = (fit) => f(fit.simple.coef[1]);
 const n = (x) => x.toLocaleString("en-GB");
+
+const py = () => lang === "Python";
 
 export const TEXT = {
   intro: `In Practical 2 we found a handful of datazones with extremely high numbers of tobacco retailers per 1,000 people, and we removed them before running our models. Remember we said that decisions like this are always a judgement call? So how much difference did this one actually make? Quite a lot, as it turns out!`,
 
   kept: (now) => `<b>${n(now.kept)}</b> datazones kept and <b>${n(now.removed)}</b> removed.`,
   models: ["Retailers only", "Adjusted for deprivation"],
-  fit: (now) => `Multiple R-squared for the first model: <b>${f(now.simple.r2, 3)}</b>.`,
-  code: (cutoff) =>
-    `urban_only <- analysis_data %>%\n    filter(retailers_adj <= ${cutoff}) %>%\n    filter(urban_rural_2cat == "Urban")\n\nlm(smoking_rate ~ retailers_adj,\n   data = urban_only, na.action = na.exclude)\nlm(smoking_rate ~ retailers_adj + simd_rank,\n   data = urban_only, na.action = na.exclude)`,
+  fit: (now) => `${py() ? "R-squared" : "Multiple R-squared"} for the first model: <b>${f(now.simple.r2, 3)}</b>.`,
+  code: (cutoff) => py()
+    ? `urban_only = analysis_data[\n    (analysis_data['retailers_adj'] <= ${cutoff}) &\n    (analysis_data['urban_rural_2cat'] == "Urban")]\n\nsmf.ols('smoking_rate ~ retailers_adj',\n        data=urban_only).fit()\nsmf.ols('smoking_rate ~ retailers_adj + simd_rank',\n        data=urban_only).fit()`
+    : `urban_only <- analysis_data %>%\n    filter(retailers_adj <= ${cutoff}) %>%\n    filter(urban_rural_2cat == "Urban")\n\nlm(smoking_rate ~ retailers_adj,\n   data = urban_only, na.action = na.exclude)\nlm(smoking_rate ~ retailers_adj + simd_rank,\n   data = urban_only, na.action = na.exclude)`,
 
   explain: {
     none: (all) =>

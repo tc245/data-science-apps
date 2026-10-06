@@ -52,7 +52,14 @@
       </section>
       <div class="panel">
         <h2>The model</h2>
-        <pre><code id="code"></code></pre>
+        <div class="control lang">
+        <span class="control-label" id="lang-label">Code in</span>
+        <div class="segmented" role="group" aria-labelledby="lang-label">
+          <button type="button" data-lang="R" aria-pressed="true">R</button>
+          <button type="button" data-lang="Python" aria-pressed="false">Python</button>
+        </div>
+      </div>
+      <pre><code id="code"></code></pre>
         <div class="table-wrap"><table id="coef-table"></table></div>
         <p class="fit" id="fit"></p>
       </div>

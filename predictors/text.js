@@ -1,23 +1,29 @@
-// All of the words on the page. Written in the same voice as the practical notebooks.
+// All of the words on the page (the code, and the names of things in the output, in R and Python versions). Written in the same voice as the practical notebooks.
 // `now` is the model with the ticked domains, `alone` holds each domain's model on its own and
 // `full` is the practical's model with all seven, so the numbers in the text always match the page.
+
+import { lang } from "../shared/lang.js";
 
 const f = (x, dp = 2) => { const t = x.toFixed(dp); return Number(t) === 0 ? t.replace("-", "") : t.replace("-", "−"); };
 const code = (name) => `<code>${name}</code>`;
 const list = (names) => names.length < 2 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
 
+const py = () => lang === "Python";
+
 export const TEXT = {
   intro: `In Practical 2 we put all seven domains of the SIMD into one model to see which kinds of deprivation are associated with the number of tobacco retailers, and only income deprivation (income_rank) had a clear association. So does that mean that health, employment and education deprivation don't matter for tobacco retailing? Not so fast!`,
 
-  scaleNote: (full) => `The coefficients here are for every 100 ranks, which makes them easier to read. R gives them for a single rank, so ${f(full.terms.income_rank.estimate)} here is ${f(full.terms.income_rank.estimate / 100, 4)} in your R output. Remember that rank 1 is the most deprived datazone, so a negative coefficient means more retailers in more deprived datazones.`,
+  scaleNote: (full) => `The coefficients here are for every 100 ranks, which makes them easier to read. ${lang} gives them for a single rank, so ${f(full.terms.income_rank.estimate)} here is ${f(full.terms.income_rank.estimate / 100, 4)} in your ${lang} output. Remember that rank 1 is the most deprived datazone, so a negative coefficient means more retailers in more deprived datazones.`,
 
   legend: {
     alone: "<b>If it was the only domain in the model.</b> These come from seven separate models, one for each domain, so they never move.",
     model: "<b>In the model you have built</b> with the tick boxes. These change every time you tick or untick a domain.",
   },
   columns: ["", "In your model", "95% CI", "As the only domain"],
-  fit: (now) => `Multiple R-squared: <b>${f(now.r2, 3)}</b> &nbsp; Adjusted R-squared: <b>${f(now.adjR2, 3)}</b>`,
-  code: (names) => `lm(retailers_adj ~ ${names.join(" +\n     ")},\n   data = urban_only, na.action = na.exclude)`,
+  fit: (now) => `${py() ? "R-squared" : "Multiple R-squared"}: <b>${f(now.r2, 3)}</b> &nbsp; ${py() ? "Adj." : "Adjusted"} R-squared: <b>${f(now.adjR2, 3)}</b>`,
+  code: (names) => py()
+    ? `smf.ols('''retailers_adj ~ ${names.join(" +\n        ")}''',\n        data=urban_only).fit()`
+    : `lm(retailers_adj ~ ${names.join(" +\n     ")},\n   data = urban_only, na.action = na.exclude)`,
   noCode: `# Tick at least one domain`,
 
   explain: {

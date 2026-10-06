@@ -1,6 +1,7 @@
 import { DATA } from "./data.js";
 import { lm, predict } from "../shared/model.js";
 import { explain } from "../shared/explain.js";
+import { lang, onLang } from "../shared/lang.js";
 import { TEXT } from "./text.js";
 
 const $ = (id) => document.getElementById(id);
@@ -80,8 +81,8 @@ const fmt = (v) => (Math.abs(v) < 0.1 ? v.toFixed(4) : v.toFixed(2));
 
 function drawModel() {
   const m = state.model === "simple" ? m1 : m2;
-  const terms = state.model === "simple" ? ["(Intercept)", "retailers_adj"] : ["(Intercept)", "retailers_adj", "simd_rank"];
-  $("code").textContent = TEXT.code[state.model];
+  const terms = state.model === "simple" ? [TEXT.intercept(), "retailers_adj"] : [TEXT.intercept(), "retailers_adj", "simd_rank"];
+  $("code").textContent = TEXT.code[lang][state.model];
   $("coef-table").innerHTML =
     `<thead><tr><th scope="col"></th><th scope="col" class="num">Estimate</th><th scope="col" class="num">95% CI</th></tr></thead><tbody>` +
     terms.map((t, i) => `<tr><td><code>${t}</code></td><td class="num">${fmt(m.coef[i])}</td><td class="num">${fmt(m.ci[i][0])} to ${fmt(m.ci[i][1])}</td></tr>`).join("") +
@@ -140,4 +141,5 @@ $("chart").addEventListener("pointermove", (e) => {
 $("chart").addEventListener("pointerleave", () => { $("tip").hidden = true; $("hover").setAttribute("visibility", "hidden"); });
 
 $("intro").textContent = TEXT.intro(m1, m2);
+onLang(drawModel);
 render();

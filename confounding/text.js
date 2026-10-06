@@ -1,8 +1,12 @@
-// All of the words on the page. Written in the same voice as the practical notebooks.
+// All of the words on the page (the code, and the names of things in the output, in R and Python versions). Written in the same voice as the practical notebooks.
 // m1 and m2 are the two fitted models and g holds the averages for the three deprivation groups,
 // so the numbers in the text always match the numbers on the page.
 
+import { lang } from "../shared/lang.js";
+
 const f = (x, dp = 2) => x.toFixed(dp);
+
+const py = () => lang === "Python";
 
 export const TEXT = {
   intro: (m1, m2) =>
@@ -11,11 +15,18 @@ export const TEXT = {
   groups: { most: "Most deprived third", mid: "Middle third", least: "Least deprived third" },
 
   code: {
-    simple: `simple_linear_regression <- lm(\n    smoking_rate ~ retailers_adj,\n    data = urban_only,\n    na.action = na.exclude)\nsummary(simple_linear_regression)\nconfint(simple_linear_regression)`,
-    adjusted: `multiple_linear_regression <- lm(\n    smoking_rate ~ retailers_adj + simd_rank,\n    data = urban_only,\n    na.action = na.exclude)\nsummary(multiple_linear_regression)\nconfint(multiple_linear_regression)`,
+    R: {
+      simple: `simple_linear_regression <- lm(\n    smoking_rate ~ retailers_adj,\n    data = urban_only,\n    na.action = na.exclude)\nsummary(simple_linear_regression)\nconfint(simple_linear_regression)`,
+      adjusted: `multiple_linear_regression <- lm(\n    smoking_rate ~ retailers_adj + simd_rank,\n    data = urban_only,\n    na.action = na.exclude)\nsummary(multiple_linear_regression)\nconfint(multiple_linear_regression)`,
+    },
+    Python: {
+      simple: `simple_linear_regression = smf.ols(\n    'smoking_rate ~ retailers_adj',\n    data=urban_only).fit()\nsimple_linear_regression.summary()\nsimple_linear_regression.conf_int()`,
+      adjusted: `multiple_linear_regression = smf.ols(\n    'smoking_rate ~ retailers_adj + simd_rank',\n    data=urban_only).fit()\nprint(multiple_linear_regression.summary())\nprint(multiple_linear_regression.conf_int())`,
+    },
   },
+  intercept: () => (py() ? "Intercept" : "(Intercept)"),
 
-  fit: (m) => `Multiple R-squared: <b>${f(m.r2, 3)}</b>, so this model explains about ${Math.round(m.r2 * 100)}% of the variation in smoking rates.`,
+  fit: (m) => `${py() ? "R-squared" : "Multiple R-squared"}: <b>${f(m.r2, 3)}</b>, so this model explains about ${Math.round(m.r2 * 100)}% of the variation in smoking rates.`,
 
   predictionNote: {
     simple: `Model 1 doesn't know anything about deprivation, so it gives the same answer whatever the deprivation rank is.`,
