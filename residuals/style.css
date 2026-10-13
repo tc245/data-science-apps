@@ -1,0 +1,23 @@
+/* Styles for the residuals explorer only. */
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; }
+.charts figure { margin: 0; min-width: 0; }
+.charts h3 { margin: 4px 0 2px; }
+.charts svg.chart { min-width: 0; }
+@media (max-width: 700px) { .charts { grid-template-columns: 1fr; } }
+
+svg.chart .stick { stroke: var(--dot); stroke-width: 1; stroke-opacity: 0.45; }
+svg.chart .smooth { fill: none; stroke: var(--bad); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+svg.chart .reference { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.swatch.smooth { width: 22px; height: 0; border: 0; border-top: 2.5px solid var(--bad); border-radius: 0; }
+.swatch.reference { width: 22px; height: 0; border: 0; border-top: 1.5px dashed var(--muted); border-radius: 0; }
+
+.controls { align-items: center; gap: 10px 12px; }
+.controls .slider { flex: 1 1 100%; margin: 0; }
+#coef-table { font-size: 0.88rem; }
+.swatch.stick { width: 0; height: 14px; border: 0; border-left: 1.5px solid var(--dot); border-radius: 0; }
+
+/* The model sits under the plots, with its code beside its output. */
+.model { display: grid; grid-template-columns: auto 1fr; gap: 0 20px; align-items: start; }
+.model h2, .model .fit { grid-column: 1 / -1; }
+.model pre { margin: 0; }
+@media (max-width: 700px) { .model { grid-template-columns: 1fr; } }
