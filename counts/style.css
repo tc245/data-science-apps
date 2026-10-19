@@ -1,0 +1,18 @@
+/* Styles for the counts and overdispersion app only. */
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; }
+.charts figure { margin: 0; min-width: 0; }
+.charts h3 { margin: 4px 0 2px; }
+.charts svg.chart { min-width: 0; }
+@media (max-width: 700px) { .charts { grid-template-columns: 1fr; } }
+
+svg.chart .dot { fill-opacity: 0.45; stroke: none; }
+svg.chart .fit-line { stroke-width: 3; }
+svg.chart .truth { fill: none; stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 7 5; }
+.swatch.dot { background: var(--dot); opacity: 0.6; border: 0; }
+.swatch.truth { width: 22px; height: 0; border: 0; border-top: 2.5px dashed var(--bad); border-radius: 0; }
+.legend li[hidden] { display: none; }
+
+.controls { align-items: center; gap: 10px 12px; }
+.controls .slider, .controls .toggle { flex: 1 1 100%; margin: 0; }
+#coef-table, #ratio-table { font-size: 0.88rem; }
+#ratio-table td:first-child { white-space: normal; }

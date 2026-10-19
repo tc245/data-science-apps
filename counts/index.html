@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counts and overdispersion</title>
+<meta name="description" content="Data Science for Geographers, Practical 4: what the offset does in a Poisson regression, and what overdispersion does to the confidence intervals.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Ccircle cx=%229%22 cy=%2210%22 r=%222.5%22 fill=%22white%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%222.5%22 fill=%22white%22/%3E%3Ccircle cx=%2223%22 cy=%2222%22 r=%222.5%22 fill=%22white%22/%3E%3Ccircle cx=%2212%22 cy=%2220%22 r=%222.5%22 fill=%22white%22/%3E%3Ccircle cx=%2222%22 cy=%2212%22 r=%222.5%22 fill=%22white%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 4</span>
+</header>
+
+<main>
+  <h1>Counting smokers: offsets and overdispersion</h1>
+  <p id="intro"></p>
+  <p>Below are 200 simulated datazones. Start with the offset ticked and no extra variation: this is data that follows a Poisson distribution exactly. Then untick the offset, put it back, and move the slider to add more and more variation between datazones. Each time, look at the plots and the model output, and read the "What's going on?" box, which changes to explain what you are seeing.</p>
+
+  <section class="results">
+    <div class="side">
+      <div class="panel">
+        <div class="charts">
+          <figure>
+            <h3>Pregnant women</h3>
+            <div class="chart-wrap"><svg id="women" class="chart" viewBox="0 0 360 280" role="img" aria-labelledby="women-desc"></svg></div>
+            <p id="women-desc" class="visually-hidden"></p>
+          </figure>
+          <figure>
+            <h3 id="smokers-title"></h3>
+            <div class="chart-wrap"><svg id="smokers" class="chart" viewBox="0 0 360 280" role="img" aria-labelledby="smokers-desc"></svg></div>
+            <p id="smokers-desc" class="visually-hidden"></p>
+          </figure>
+        </div>
+        <ul class="legend" aria-label="Key">
+          <li><span class="swatch dot round"></span>A simulated datazone</li>
+          <li><span class="swatch line"></span>What our model predicts</li>
+          <li id="truth-key"><span class="swatch truth"></span>The true smoking rate (what we simulated)</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>The model</h2>
+        <pre><code id="code"></code></pre>
+        <div class="table-wrap"><table id="coef-table"></table></div>
+        <p class="fit" id="deviance"></p>
+        <div class="table-wrap"><table id="ratio-table"></table></div>
+        <p class="fit" id="coverage"></p>
+      </div>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Change the data and the model">
+        <label class="toggle"><input type="checkbox" id="offset"> Include the offset: <code>offset(log(pregnant_women))</code></label>
+        <label class="slider">
+          <span>Extra variation between datazones: <b id="extra-value"></b></span>
+          <input type="range" id="extra" min="0" max="1" step="0.1">
+        </label>
+        <button type="button" class="action" data-extra="0">Poisson data</button>
+        <button type="button" class="action" data-extra="1">Overdispersed data</button>
+        <button type="button" class="action" id="again">New random numbers</button>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 4 &middot; All data are simulated.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
