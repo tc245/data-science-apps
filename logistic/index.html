@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logistic regression explorer</title>
+<meta name="description" content="Data Science for Geographers, Practical 4: why a straight line doesn't work for a binary outcome, and how logistic regression uses odds and log-odds instead.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M5 25C14 25 12 7 27 7%22 fill=%22none%22 stroke=%22white%22 stroke-width=%223%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 4</span>
+</header>
+
+<main>
+  <h1>Straight line or S-curve? The logistic regression explorer</h1>
+  <p id="intro"></p>
+  <p>Start on the probability scale and then click through to odds and log-odds, keeping an eye on the curve and the model output. Then try moving the cut-off we used to split the smoking rates into two groups. Each time you change something, read the "What's going on?" box, which changes to explain what you are seeing.</p>
+
+  <section class="results">
+    <div class="side">
+      <div class="panel">
+        <h2>Rural datazones: smoking rate of <span id="cut-title"></span> or more</h2>
+        <div class="chart-wrap"><svg id="chart" class="chart" viewBox="0 0 720 420" role="img" aria-labelledby="chart-desc"></svg></div>
+        <p id="chart-desc" class="visually-hidden"></p>
+        <ul class="legend" aria-label="Key">
+          <li data-for="probability"><span class="swatch dot round"></span>A datazone (bottom: 0, top: 1)</li>
+          <li><span class="swatch tenth round"></span>Proportion of 1s in each tenth of the datazones</li>
+          <li><span class="swatch line"></span>Logistic regression</li>
+          <li data-for="linear"><span class="swatch linear"></span>Straight line (linear regression)</li>
+        </ul>
+      </div>
+      <div class="panel model">
+        <h2>The model</h2>
+        <pre><code id="code"></code></pre>
+        <div class="output">
+          <div>
+            <div class="table-wrap"><table id="coef-table"></table></div>
+            <p class="fit" id="aic"></p>
+            <p class="fit small" id="linear"></p>
+          </div>
+          <div>
+            <div class="table-wrap"><table id="odds-table"></table></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Change the plot">
+        <div class="control">
+          <span class="control-label">Scale</span>
+          <div class="segmented">
+            <button type="button" data-scale="probability">Probability</button>
+            <button type="button" data-scale="odds">Odds</button>
+            <button type="button" data-scale="logodds">Log-odds</button>
+          </div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="show-linear"> Show the straight line (linear regression)</label>
+        <label class="slider">
+          <span>Cut-off for a "1": a smoking rate of <b id="cut-value"></b> or more</span>
+          <input type="range" id="cut" min="5" max="40" step="1">
+        </label>
+        <button type="button" class="action" data-reset>Back to the practical's model</button>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 4 &middot; All data are simulated.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

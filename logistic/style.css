@@ -1,0 +1,23 @@
+/* Styles for the logistic regression explorer only. */
+svg.chart .dot { fill-opacity: 0.35; stroke: none; }
+svg.chart .dot.one { fill: var(--accent); }
+svg.chart .tenth { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+svg.chart .linear { stroke: var(--bad); stroke-width: 2.5; stroke-dasharray: 8 6; }
+svg.chart .impossible { fill: var(--bad); fill-opacity: 0.08; }
+svg.chart .impossible-label { fill: var(--bad); font-size: 14px; }
+svg.chart .grid.zero { stroke: var(--muted); }
+.swatch.dot { background: var(--dot); opacity: 0.6; border: 0; }
+.swatch.tenth { background: var(--surface); border: 2px solid var(--ink); }
+.swatch.linear { width: 22px; height: 0; border: 0; border-top: 2.5px dashed var(--bad); border-radius: 0; }
+.legend li[hidden] { display: none; }
+
+.controls { flex-direction: column; align-items: stretch; }
+.controls .slider { margin: 0; }
+.controls .action { align-self: flex-start; }
+.toggle:has(input:disabled) { opacity: 0.45; }
+
+/* The model sits under the plot: the code, then its output beside the odds ratios. */
+.model .output { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; align-items: start; }
+.model h3 { margin-top: 12px; }
+#coef-table, #odds-table { font-size: 0.88rem; }
+@media (max-width: 900px) { .model .output { grid-template-columns: 1fr; } }

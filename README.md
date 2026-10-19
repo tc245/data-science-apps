@@ -10,8 +10,9 @@ Small web pages that go alongside the practical notebooks. They are plain HTML, 
 - `residuals/`: Practical 3. Simulated "good" and "bad" data, as in the notebook, with one slider that bends the relationship and one that makes the noise grow with x, so each problem can be seen on its own in the residuals vs fitted, Q-Q and scale-location plots. The data are made in the browser from a seed (`diagnostics.js`), so there is no `data.js`. R code only, as Practical 3 has no Python version.
 - `reference/`: Practical 4. Smoking rates by SIMD quintile for every datazone in the notebook: choose the reference category and see the intercept, the coefficients (as arrows from the reference mean) and the dummy variables change, or treat the quintile as a number to get the single straight line from "The problem". Its `data.js` comes from `scripts/build_app_data.py`. R code only.
 - `binomial/`: Practical 4. The binomial distribution: sliders for the number of flips and the probability of tails, the probability of any number of tails with the matching `dbinom()` and `pbinom()` code, and a datazone example (23 pregnant women, a 15% chance each) linking it to smoking rates. Calculated in the browser (`binomial.js`), so there is no `data.js`. R code only.
+- `logistic/`: Practical 4. The rural datazones from the logistic regression section: the straight line's impossible predictions against the logistic curve, the same model on the probability, odds and log-odds scales, odds ratios for 1, 100 and 1,000 ranks, and a slider that moves the 20% cut-off. Its `data.js` comes from `scripts/build_app_data.py`. R code only.
 - `shared/explain.js`: updates the "What's going on?" box and flashes it when the explanation changes.
-- `shared/model.js`: the linear regression used by the Practical 2 apps.
+- `shared/model.js`: linear regression (`lm`) for the Practical 2 and 4 apps, and logistic and Poisson regression (`glm`, checked against R in `test/glm.test.mjs`) for the Practical 4 apps.
 - `shared/style.css`: shared colours (light and dark), typography, layout, controls, tables and charts.
 
 All data are simulated: every datazone, postcode and retailer is fictional.
