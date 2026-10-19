@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coin flip explorer</title>
+<meta name="description" content="Data Science for Geographers, Practical 4: how likely is each number of tails when you flip a coin? The binomial distribution, and what it means for smoking rates in small datazones.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M7 25V19M12 25V12M16 25V7M20 25V12M25 25V19%22 stroke=%22white%22 stroke-width=%223%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 4</span>
+</header>
+
+<main>
+  <h1>Heads or tails: the binomial distribution</h1>
+  <p id="intro"></p>
+  <p>Use the sliders to change the number of flips and how likely each flip is to land on tails. The chart shows how likely every possible number of tails is. Click on a bar (or use the third slider) to pick a number of tails, and the table underneath works out its probability, along with the R code that does the same thing. Then read the "What's going on?" box, which changes to explain what you are seeing.</p>
+
+  <section class="results">
+    <div class="side">
+      <div class="panel">
+        <h2>How likely is each result?</h2>
+        <div class="chart-wrap"><svg id="chart" class="chart" viewBox="0 0 720 340" role="img" aria-labelledby="chart-desc"></svg></div>
+        <p id="chart-desc" class="visually-hidden"></p>
+        <ul class="legend" aria-label="Key">
+          <li><span class="swatch bar"></span>Probability of each result</li>
+          <li><span class="swatch picked"></span>The result we are asking about</li>
+          <li><span class="swatch expected"></span>The number we would expect on average</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="table-wrap"><table id="prob-table"></table></div>
+      </div>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Change the coin">
+        <label class="slider">
+          <span><span id="n-label"></span>: <b id="n-value"></b></span>
+          <input type="range" id="n" min="1" max="200" step="1">
+        </label>
+        <label class="slider">
+          <span><span id="p-label"></span>: <b id="p-value"></b></span>
+          <input type="range" id="p" min="0.01" max="0.99" step="0.01">
+        </label>
+        <label class="slider">
+          <span><span id="k-label"></span>: <b id="k-value"></b></span>
+          <input type="range" id="k" min="0" step="1">
+        </label>
+        <button type="button" class="action" data-preset="coin64">64 tails out of 100</button>
+        <button type="button" class="action" data-preset="coin10">Just 10 flips</button>
+        <button type="button" class="action" data-preset="datazone">A datazone</button>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 4 &middot; All data are simulated.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

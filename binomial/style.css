@@ -1,0 +1,14 @@
+/* Styles for the coin flip explorer only. */
+svg.chart { cursor: pointer; touch-action: none; }
+svg.chart .bar { fill: var(--dot); fill-opacity: 0.55; }
+svg.chart .bar.picked, svg.chart .marker { fill: var(--accent); fill-opacity: 1; }
+svg.chart .expected { stroke: var(--bad); stroke-width: 2; stroke-dasharray: 6 5; }
+.swatch.bar { background: var(--dot); opacity: 0.55; }
+.swatch.picked { background: var(--accent); }
+.swatch.expected { width: 22px; height: 0; border: 0; border-top: 2px dashed var(--bad); border-radius: 0; }
+
+.controls { align-items: center; gap: 10px 12px; }
+.controls .slider { flex: 1 1 100%; margin: 0; }
+.slider span span { display: inline; }
+#prob-table td { white-space: normal; }
+#prob-table td.num { white-space: nowrap; }
