@@ -1,0 +1,24 @@
+/* Styles for the reference category explorer only. */
+svg.chart .dot { fill-opacity: 0.25; stroke: none; }
+svg.chart .column { fill: transparent; cursor: pointer; }
+svg.chart .column.ref { fill: var(--accent-soft); }
+svg.chart .ref-label { fill: var(--accent); font-weight: 700; }
+svg.chart .mean { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+svg.chart .mean.ghost { stroke: var(--muted); stroke-width: 4; }
+svg.chart .refline { stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 8 6; }
+svg.chart .arrow { stroke: var(--bad); stroke-width: 2.5; }
+svg.chart .arrowhead { fill: var(--bad); }
+svg.chart .line-label { fill: var(--bad); }
+.swatch.dot { background: var(--dot); opacity: 0.5; border: 0; }
+.swatch.mean { width: 22px; height: 0; border: 0; border-top: 5px solid var(--ink); border-radius: 0; }
+.swatch.refline { width: 22px; height: 0; border: 0; border-top: 2.5px dashed var(--accent); border-radius: 0; }
+.swatch.arrow { width: 22px; height: 0; border: 0; border-top: 2.5px solid var(--bad); border-radius: 0; }
+
+.controls { flex-direction: column; align-items: stretch; }
+.segmented button:disabled { opacity: 0.45; cursor: default; }
+
+#coef-table td:first-child { white-space: normal; }
+#coef-table, #dummy-table { font-size: 0.88rem; }
+#dummy-table tr.ref td { background: var(--accent-soft); }
+#dummy-table th { white-space: normal; }
+.legend li[hidden] { display: none; }

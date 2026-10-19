@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference category explorer</title>
+<meta name="description" content="Data Science for Geographers, Practical 4: what dummy variables and the reference category do when we put a categorical predictor into a regression.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M5 9h22M8 9v16M16 9v9M24 9v5%22 stroke=%22white%22 stroke-width=%222.6%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 4</span>
+</header>
+
+<main>
+  <h1>Starting points: the reference category explorer</h1>
+  <p id="intro"></p>
+  <p>The plot shows the smoking rate in every datazone in the practical, split by SIMD quintile, with a thick line at the mean for each quintile. Click on a quintile (on the plot or with the buttons) to make it the reference category, and watch the arrows, the model output and the dummy variables change. Then read the "What's going on?" box, which changes to explain what you are seeing.</p>
+
+  <section class="results">
+    <div class="side">
+      <div class="panel">
+        <h2>Smoking rates by SIMD quintile</h2>
+        <div class="chart-wrap"><svg id="chart" class="chart" viewBox="0 0 720 420" role="img" aria-labelledby="chart-desc"></svg></div>
+        <p id="chart-desc" class="visually-hidden"></p>
+        <ul class="legend" aria-label="Key">
+          <li><span class="swatch dot round"></span>A datazone</li>
+          <li><span class="swatch mean"></span>Mean for each quintile</li>
+          <li data-mode="factor"><span class="swatch refline"></span>Mean for the reference category (the intercept)</li>
+          <li data-mode="factor"><span class="swatch arrow"></span>Coefficient: difference from the reference</li>
+          <li data-mode="number" hidden><span class="swatch line"></span>Regression line, with the quintile as a number</li>
+        </ul>
+      </div>
+      <div class="panel model">
+        <h2>The model</h2>
+        <pre><code id="code"></code></pre>
+        <div class="table-wrap"><table id="coef-table"></table></div>
+        <p class="fit" id="fit"></p>
+      </div>
+      <div class="panel">
+        <h2 id="dummy-title"></h2>
+        <div class="table-wrap"><table id="dummy-table"></table></div>
+      </div>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Change the model">
+        <div class="control">
+          <span class="control-label">Reference category</span>
+          <div class="segmented">
+            <button type="button" data-ref="0">Most deprived</button>
+            <button type="button" data-ref="1">Second</button>
+            <button type="button" data-ref="2">Third</button>
+            <button type="button" data-ref="3">Fourth</button>
+            <button type="button" data-ref="4">Least deprived</button>
+          </div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="number"> Treat the quintile as a number (1 to 5)</label>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 4 &middot; All data are simulated.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
