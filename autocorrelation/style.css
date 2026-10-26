@@ -1,0 +1,20 @@
+/* Styles for the autocorrelation explorer only. */
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; align-items: start; }
+.charts figure { margin: 0; min-width: 0; }
+.charts h3 { margin: 4px 0 6px; }
+.charts svg.chart { min-width: 0; }
+@media (max-width: 700px) { .charts { grid-template-columns: 1fr; } }
+svg.data { display: block; width: 100%; height: auto; aspect-ratio: 400 / 340; }
+svg.data path.area { stroke: var(--surface); stroke-width: 0.4; vector-effect: non-scaling-stroke; }
+svg.data .series { fill: none; stroke-width: 2; stroke: var(--accent); opacity: 0.75; }
+svg.data text { fill: var(--muted); font-size: 15px; }
+svg.data .grid { stroke: var(--line); }
+svg.chart .bar { fill: var(--dot); }
+svg.chart .observed { stroke: #eb6834; stroke-width: 3; }
+svg.chart .observed-label { fill: var(--ink); font-size: 14px; font-weight: 600; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+.swatch.ramp { width: 60px; background: linear-gradient(90deg, #cde2fb, #6da7ec, #256abf, #0d366b); }
+.swatch.bar { background: var(--dot); border: 0; }
+.swatch.observed { width: 4px; height: 16px; background: #eb6834; border: 0; border-radius: 0; }
+.legend li[hidden] { display: none; }
+.controls { gap: 10px 12px; align-items: center; }
+.controls .control, .controls .slider { flex: 1 1 100%; margin: 0; }

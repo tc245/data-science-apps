@@ -1,0 +1,24 @@
+/* Styles for the neighbours and weights app only. */
+.map-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
+.map-head h2 { margin: 0; }
+svg.map { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; max-height: 640px; background: var(--surface); cursor: pointer; }
+svg.map path { stroke: var(--surface); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+svg.map path.faded { opacity: 0.3; }
+svg.map path.neighbour { stroke: var(--ink); stroke-width: 2.5; }
+svg.map path.chosen { stroke: #eb6834; stroke-width: 4; }
+svg.map .link { stroke: #eb6834; stroke-width: 2; vector-effect: non-scaling-stroke; pointer-events: none; }
+svg.map .centroid { fill: #eb6834; stroke: var(--surface); stroke-width: 1.5; vector-effect: non-scaling-stroke; pointer-events: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) svg.map path.chosen, :root:not([data-theme="light"]) svg.map .link { stroke: #d95926; } }
+.swatch.ramp { width: 60px; background: linear-gradient(90deg, #cde2fb, #6da7ec, #256abf, #0d366b); }
+.swatch.chosen { border: 3px solid #eb6834; }
+.swatch.neighbour { border: 2.5px solid var(--ink); }
+
+#years .year-line { fill: none; stroke: var(--muted); stroke-width: 2; }
+#years .dot { fill: var(--dot); }
+#years .this-year { fill: #eb6834; fill-opacity: 1; }
+#years .last-year { fill: var(--ink); fill-opacity: 1; }
+
+.controls { gap: 12px 20px; }
+#k-slider { flex: 1 1 100%; margin: 0; }
+#weights-table { font-size: 0.88rem; }
+#weights-table tfoot td { font-weight: 600; border-bottom: 0; }

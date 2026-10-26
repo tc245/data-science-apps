@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Difference-in-differences builder</title>
+<meta name="description" content="Data Science for Geographers, Practical 6: build a difference-in-differences estimate step by step, and see what happens when the parallel trends assumption fails.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M5 10l11 4 11 4M5 16l11 4 5 2 6 -6%22 fill=%22none%22 stroke=%22white%22 stroke-width=%222.2%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 6</span>
+</header>
+
+<main>
+  <h1>Did the policy work? The difference-in-differences builder</h1>
+  <p id="intro"></p>
+  <p>Work through the five steps in order, reading the "What's going on?" box each time. Then go back and try the sliders, especially the one that makes the trends <b>not</b> parallel, and see which steps go wrong.</p>
+
+  <section class="results">
+    <div class="side">
+      <div class="panel">
+        <h2 id="chart-title"></h2>
+        <div class="chart-wrap"><svg id="chart" class="chart" viewBox="0 0 720 400" role="img" aria-labelledby="chart-desc"></svg></div>
+        <p id="chart-desc" class="visually-hidden"></p>
+        <ul class="legend" id="legend" aria-label="Key"></ul>
+      </div>
+      <div class="panel">
+        <h2>The estimates</h2>
+        <div class="table-wrap"><table id="estimates"></table></div>
+        <pre><code id="code"></code></pre>
+        <div class="table-wrap" id="table-wrap"><table id="two-by-two"></table></div>
+      </div>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Choose the step">
+        <div class="control">
+          <span class="control-label">Step</span>
+          <div class="segmented" id="steps">
+            <button type="button" data-step="1">1. Before and after</button>
+            <button type="button" data-step="2">2. Treated vs untreated</button>
+            <button type="button" data-step="3">3. What would have happened?</button>
+            <button type="button" data-step="4">4. Difference-in-differences</button>
+            <button type="button" data-step="5">5. One estimate per year</button>
+          </div>
+        </div>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+      <section class="controls" aria-label="Change the data">
+        <label class="slider">
+          <span>Gap before the policy (treated minus untreated): <b id="gap-value"></b></span>
+          <input type="range" id="gap" min="0" max="5" step="0.5">
+        </label>
+        <label class="slider">
+          <span>The true effect of the policy (by 2019): <b id="effect-value"></b></span>
+          <input type="range" id="effect" min="-6" max="0" step="0.5">
+        </label>
+        <label class="toggle"><input type="checkbox" id="builds"> The effect builds up over time (rather than all at once)</label>
+        <label class="slider">
+          <span>Extra yearly change in the treated areas anyway: <b id="trend-value"></b></span>
+          <input type="range" id="trend" min="-1" max="1" step="0.25">
+        </label>
+        <button type="button" class="action" id="reset">Parallel trends again</button>
+        <button type="button" class="action" id="again">New random numbers</button>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 6 &middot; All data are simulated.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

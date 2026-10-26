@@ -1,27 +1,12 @@
 // Simulated datazones for the Poisson regression app, and the models we fit to them.
 import { glm } from "../shared/model.js";
+import { random } from "../shared/random.js";
 
 // The "true" smoking rate we simulate from: 30% in the most deprived datazone, falling to about 6% in
 // the least deprived, like the data in the practical.
 export const TRUE = { intercept: Math.log(0.3), slope: Math.log(0.2) / 1600 };
 export const trueRatio = Math.exp(100 * TRUE.slope); // the rate ratio for going up 100 ranks
 export const N = 200;
-
-// Random numbers we can repeat: the same seed always gives the same ones (like set.seed() in R).
-function random(seed) {
-  let a = seed >>> 0;
-  const uniform = () => { // mulberry32
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-  const normal = () => Math.sqrt(-2 * Math.log(1 - uniform())) * Math.cos(2 * Math.PI * uniform());
-  // rpois() in R. Fine for the small counts we have here.
-  const poisson = (mu) => { const limit = Math.exp(-mu); let k = 0, p = uniform(); while (p > limit) { k++; p *= uniform(); } return k; };
-  return { uniform, normal, poisson };
-}
 
 // `extra` (0 to 1) is how much datazones differ from each other beyond what deprivation explains.
 // At 0 the counts are exactly Poisson; above 0 they are overdispersed.

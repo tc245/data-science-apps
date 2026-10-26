@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neighbours and weights</title>
+<meta name="description" content="Data Science for Geographers, Practical 6: queen, rook and nearest neighbours, spatial weights, and spatial and temporal lags.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M6 6h8v8H6zM18 6h8v8h-8zM6 18h8v8H6zM18 18h8v8h-8z%22 fill=%22none%22 stroke=%22white%22 stroke-width=%222%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 6</span>
+</header>
+
+<main>
+  <h1>Who are my neighbours? Neighbours, weights and lags</h1>
+  <p id="intro"></p>
+  <p>Click on any datazone on the map to choose it (click <b>Show the whole map</b> first if you want to go somewhere else). Then try the different ways of defining neighbours and the two kinds of weights, and read the "What's going on?" box, which changes to explain what you are seeing.</p>
+
+  <section class="results">
+    <div class="side">
+      <div class="panel">
+        <div class="map-head">
+          <h2 id="map-title"></h2>
+          <button type="button" class="action" id="whole">Show the whole map</button>
+        </div>
+        <div class="chart-wrap map-wrap">
+          <svg id="map" class="map" role="img" aria-labelledby="map-desc"></svg>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+        <p id="map-desc" class="visually-hidden"></p>
+        <ul class="legend" aria-label="Key">
+          <li><span class="swatch ramp"></span>Smoking rate in 2015: <span id="ramp-range"></span></li>
+          <li><span class="swatch chosen"></span>The datazone you chose</li>
+          <li><span class="swatch neighbour"></span>Its neighbours</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>Neighbours in time</h2>
+        <div class="chart-wrap"><svg id="years" class="chart" viewBox="0 0 640 200" role="img" aria-labelledby="years-desc"></svg></div>
+        <p id="years-desc" class="visually-hidden"></p>
+        <p class="small" id="years-text"></p>
+      </div>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Choose the neighbours and the weights">
+        <div class="control">
+          <span class="control-label">Neighbours</span>
+          <div class="segmented" id="rule">
+            <button type="button" data-rule="queen">Queen</button>
+            <button type="button" data-rule="rook">Rook</button>
+            <button type="button" data-rule="knn">Nearest</button>
+          </div>
+        </div>
+        <div class="control">
+          <span class="control-label">Weights</span>
+          <div class="segmented" id="style">
+            <button type="button" data-style="B">Binary <code>"B"</code></button>
+            <button type="button" data-style="W">Row-standardised <code>"W"</code></button>
+          </div>
+        </div>
+        <label class="slider" id="k-slider">
+          <span>Number of nearest neighbours, k: <b id="k-value"></b></span>
+          <input type="range" id="k" min="1" max="12" step="1">
+        </label>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <p id="explain"></p>
+      </section>
+      <div class="panel">
+        <h2>The spatial lag</h2>
+        <pre><code id="code"></code></pre>
+        <div class="table-wrap"><table id="weights-table"></table></div>
+        <p class="fit" id="lag-text"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 6 &middot; All data are simulated.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
