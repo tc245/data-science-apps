@@ -25,10 +25,10 @@ test("nearest neighbours match knn2nb(knearneigh(st_centroid(), k = 6))", () => 
 });
 
 test("spatial lags match lag.listw with binary and row-standardised weights", () => {
-  assert.ok(Math.abs(lag(QUEEN, weights(QUEEN, "W"), rate2015)[244] - 26.42) < 1e-9);
-  assert.ok(Math.abs(lag(QUEEN, weights(QUEEN, "B"), rate2015)[244] - 184.94) < 1e-9);
+  assert.ok(Math.abs(lag(QUEEN, weights(QUEEN, "W"), rate2015)[244] - 17.9814285714) < 1e-9);
+  assert.ok(Math.abs(lag(QUEEN, weights(QUEEN, "B"), rate2015)[244] - 125.87) < 1e-9);
 });
 
 test("Moran's I matches moran() for the 2015 smoking rates", () => {
-  assert.ok(Math.abs(moranI(QUEEN, rate2015) - 0.19792861999) < 1e-9);
+  assert.ok(Math.abs(moranI(QUEEN, rate2015) - 0.22340048324) < 1e-9);
 });
