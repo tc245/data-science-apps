@@ -1,0 +1,63 @@
+/* Styles for the interactions explorer only. Blue = untreated / urban, orange = treated / rural
+   (the same pair as the difference-in-differences builder). */
+:root { --g0: #2a78d6; --g1: #eb6834; --post: #6b5bb5; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --g0: #3987e5; --g1: #d95926; --post: #9d8fe0; } }
+:root[data-theme="dark"] { --g0: #3987e5; --g1: #d95926; --post: #9d8fe0; }
+
+svg.chart .series { stroke-width: 3; stroke-linecap: round; }
+svg.chart .series.untreated, svg.chart .series.urban { stroke: var(--g0); }
+svg.chart .series.treated, svg.chart .series.rural { stroke: var(--g1); }
+svg.chart .series.extend { stroke-width: 2; stroke-dasharray: 6 5; }
+svg.chart .line-label { font-size: 14px; }
+svg.chart .line-label.untreated { fill: var(--g0); }
+svg.chart .line-label.treated, svg.chart .line-label.rural { fill: var(--g1); }
+svg.chart .line-label.urban { fill: var(--g0); }
+svg.chart .pred.untreated { fill: var(--g0); }
+svg.chart .pred.treated { fill: var(--g1); }
+svg.chart .mean-ring { fill: transparent; stroke-width: 2.5; cursor: pointer; }
+svg.chart .mean-ring.untreated { stroke: var(--g0); }
+svg.chart .mean-ring.treated { stroke: var(--g1); }
+svg.chart .mean-ring.chosen { stroke-width: 4.5; }
+svg.chart .mean-ring:focus-visible { outline: none; stroke: var(--ink); }
+svg.chart .miss { stroke: var(--bad); stroke-width: 3; }
+svg.chart .intercept { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 4 4; }
+svg.chart .step { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 2 3; }
+svg.chart .divider { stroke: var(--line); stroke-width: 1.5; }
+svg.chart .start { fill: var(--ink); }
+svg.chart .term-value { fill: var(--ink); font-size: 14px; font-family: "Source Code Pro", ui-monospace, monospace; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+svg.chart .term-value.treated { fill: var(--g1); }
+svg.chart .term-value.post { fill: var(--post); }
+svg.chart .term-value.interaction { fill: var(--bad); }
+svg.chart .arrow { stroke: var(--ink); stroke-width: 3; }
+svg.chart .arrow.treated { stroke: var(--g1); }
+svg.chart .arrow.post { stroke: var(--post); }
+svg.chart .arrow.interaction { stroke: var(--bad); }
+svg.chart .term-label { fill: var(--ink); font-size: 13px; font-weight: 600; font-family: "Source Code Pro", ui-monospace, monospace; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+svg.chart .term-label.treated { fill: var(--g1); }
+svg.chart .term-label.post { fill: var(--post); }
+svg.chart .term-label.interaction { fill: var(--bad); }
+svg.chart .pt { fill-opacity: 0.4; stroke: var(--surface); stroke-width: 0.75; }
+svg.chart .pt.urban { fill: var(--g0); }
+svg.chart .pt.rural { fill: var(--g1); }
+svg.chart .rise { fill: none; stroke-width: 2.5; }
+svg.chart .rise.urban { stroke: var(--g0); }
+svg.chart .rise.rural { stroke: var(--g1); }
+
+.swatch.ring { border: 2.5px solid var(--g1); border-radius: 50%; background: none; }
+.swatch.dot-pred { background: var(--g1); border-radius: 50%; border: 0; width: 10px; height: 10px; }
+.swatch.miss { width: 4px; height: 16px; background: var(--bad); border: 0; }
+.swatch.arrow { width: 22px; height: 0; border: 0; border-top: 3px solid var(--ink); border-radius: 0; }
+.swatch.urban { background: var(--g0); border: 0; border-radius: 50%; }
+.swatch.rural { background: var(--g1); border: 0; border-radius: 50%; }
+
+.controls { gap: 10px 12px; align-items: center; }
+.controls .control, .controls .slider, .controls > div, .controls .small { flex: 1 1 100%; margin: 0; }
+.control[hidden], .controls > div[hidden], .table-wrap[hidden] { display: none; }
+#tabs button { text-align: left; }
+#cells { display: grid; grid-template-columns: 1fr 1fr; }
+#coefs, #row { font-size: 0.88rem; margin-top: 6px; }
+#coefs td:last-child { white-space: normal; min-width: 18ch; }
+#coefs tr.current td { background: var(--accent-soft); }
+#row caption { text-align: left; font-weight: 600; padding: 10px 0 4px; }
+.explain ul { margin: 0 0 12px; padding-left: 20px; }
+.explain li { margin-bottom: 6px; max-width: 80ch; }

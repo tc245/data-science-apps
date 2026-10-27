@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactions explorer</title>
+<meta name="description" content="Data Science for Geographers, Practical 6: what an interaction does in a regression model, with two dummy variables (treated * post) and with a dummy and a number.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231f5c73%22/%3E%3Cpath d=%22M6 22L26 14M6 18L26 6%22 fill=%22none%22 stroke=%22white%22 stroke-width=%222.4%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/style.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="home" href="../">Data Science for Geographers</a>
+  <span class="crumb">Practical 6</span>
+</header>
+
+<main>
+  <h1>What does an interaction do? The interactions explorer</h1>
+  <p id="intro"></p>
+
+  <section class="results">
+    <div class="side">
+      <div class="panel">
+        <h2 id="chart-title"></h2>
+        <div class="chart-wrap"><svg id="chart" class="chart" viewBox="0 0 800 400" role="img" aria-labelledby="chart-desc"></svg></div>
+        <p id="chart-desc" class="visually-hidden"></p>
+        <ul class="legend" id="legend" aria-label="Key"></ul>
+      </div>
+      <div class="panel">
+        <h2>The model</h2>
+        <pre><code id="code"></code></pre>
+        <div class="table-wrap"><table id="coefs"></table></div>
+        <div class="table-wrap" id="row-wrap"><table id="row"></table></div>
+      </div>
+    </div>
+    <div class="side">
+      <section class="controls" aria-label="Choose the model">
+        <div class="control">
+          <span class="control-label">Which interaction?</span>
+          <div class="segmented" id="tabs">
+            <button type="button" data-tab="dummies">Two dummies: <code>treated × post</code></button>
+            <button type="button" data-tab="slopes">A dummy and a number: retailers × urban/rural</button>
+          </div>
+        </div>
+        <div class="control">
+          <span class="control-label">The model</span>
+          <div class="segmented" id="models">
+            <button type="button" data-interaction="0"><code>+</code> (no interaction)</button>
+            <button type="button" data-interaction="1"><code>*</code> (with the interaction)</button>
+          </div>
+        </div>
+        <div class="control" id="cell-control">
+          <span class="control-label">Show the prediction for</span>
+          <div class="segmented" id="cells"></div>
+        </div>
+        <div class="control" id="ref-control">
+          <span class="control-label">Reference category</span>
+          <div class="segmented">
+            <button type="button" data-ref="Rural">Rural (R's choice)</button>
+            <button type="button" data-ref="Urban">Urban</button>
+          </div>
+        </div>
+      </section>
+      <section class="panel explain" aria-live="polite">
+        <h2>What's going on? <span class="sub">(this changes as you go)</span></h2>
+        <div id="explain"></div>
+      </section>
+      <section class="controls" aria-label="Change the data">
+        <p class="small" id="howto"></p>
+        <div id="dummy-sliders">
+          <label class="slider"><span>Gap before the policy (treated minus untreated): <b id="gap-value"></b></span>
+            <input type="range" id="gap" min="0" max="5" step="0.5"></label>
+          <label class="slider"><span>Change from before to after in the untreated datazones: <b id="change-value"></b></span>
+            <input type="range" id="change" min="-4" max="0" step="0.5"></label>
+          <label class="slider"><span>Extra change in the treated datazones (the true effect): <b id="effect-value"></b></span>
+            <input type="range" id="effect" min="-6" max="2" step="0.5"></label>
+        </div>
+        <div id="slope-sliders">
+          <label class="slider"><span>Slope in urban datazones: <b id="urbanSlope-value"></b></span>
+            <input type="range" id="urbanSlope" min="0" max="1.5" step="0.1"></label>
+          <label class="slider"><span>Difference in slopes (rural minus urban): <b id="slopeDiff-value"></b></span>
+            <input type="range" id="slopeDiff" min="-1" max="1" step="0.1"></label>
+          <label class="slider"><span>Gap with no retailers (rural minus urban): <b id="ruralGap-value"></b></span>
+            <input type="range" id="ruralGap" min="-4" max="4" step="0.5"></label>
+        </div>
+        <button type="button" class="action" id="reset">Back to the start</button>
+        <button type="button" class="action" id="again">New random numbers</button>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  Data Science for Geographers &middot; Practical 6 &middot; All data are simulated.
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
